@@ -12,5 +12,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - name: Install test dependencies
+        run: python -m pip install -e ".[test]"
       - name: Run smoke and contract tests
         run: python scripts/ci_smoke.py
