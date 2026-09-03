@@ -1,0 +1,9 @@
+stages:
+  - test
+
+smoke_ci:
+  stage: test
+  image: python:3.11
+  script:
+    - python --version
+    - python scripts/ci_smoke.py
