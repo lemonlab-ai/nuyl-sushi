@@ -102,3 +102,27 @@ Git repositories 只管理程式、標註、manifest、checksum 與資料集文�
 7. 公開前才建立 preview、streaming shards、dataset card 與 DOI snapshot。
 
 轉碼設定的版本控制入口為 [`configs/datasets/media_profiles.toml`](../configs/datasets/media_profiles.toml)。實際影片路徑、cloud credentials 與個資不寫入設定檔。
+
+## Dry-run planner
+
+目前先提供唯讀規劃工具；它會寫出 `release_plan.csv/json`，但不會執行 FFmpeg 或改動來源：
+
+```powershell
+python scripts/plan_dataset_release.py `
+  --video-manifest C:\path\to\video_manifest.csv `
+  --source-dir C:\path\to\videos `
+  --profile research-720p `
+  --output-dir artifacts\release_plans\research-720p
+```
+
+加上 `--verify-checksum` 才會重新讀取全部影片並核對 SHA-256。若找不到 `ffprobe`，工具仍會產生計畫，但缺少 codec、pixel format 或 audio 資訊的檔案會標成 `blocked`，不會猜測其合規性。
+
+### 2026-09-03 實際 dry-run
+
+- 範圍：99 支 canonical 已標註影片。
+- SHA-256：99/99 與既有 manifest 相符。
+- 影像：99/99 為 H.264、`yuv420p`、1280×720、24 fps。
+- 音訊：99/99 各有 1 條 audio stream。
+- 決策：目前 99 支均為 `blocked`，唯一原因是 `audio_consent_review_required`。
+
+影像本身符合 `research-720p`，不需要重新壓縮。若 consent 允許保留音訊，release 可直接 copy；若要求移除音訊，實作階段應採 video stream copy + `-an` 的 remux，避免畫面再次有損編碼。

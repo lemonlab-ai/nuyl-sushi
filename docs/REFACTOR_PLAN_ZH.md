@@ -261,3 +261,5 @@ package → canonical data → dataset preparation → tests/CI
 同日進度：`python-package-foundation` 已完成，canonical dataclass 與第一版 validation contract 已建立。下一個遷移單位為 VIA reader/converter 與 golden fixtures。
 
 VIA reader/converter 與 golden fixtures 已完成；新版對 99 支影片、1,232 個片段的輸出與舊版 master 語意完全相同。下一個批次改為 Task A/B canonical exporters。
+
+Dataset release dry-run planner 已完成；99 支影片 checksum 全數相符且影像編碼符合 `research-720p`。目前唯一發布閘門是每支影片皆含音訊，須先完成人工 consent 決策。原始影片未被修改或轉碼。

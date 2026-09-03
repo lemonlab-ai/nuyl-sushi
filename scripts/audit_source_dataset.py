@@ -105,8 +105,10 @@ def probe_video_cv2(path: Path) -> Dict[str, Any]:
         "codec": "",
         "width": width,
         "height": height,
+        "pixel_format": "",
         "frame_rate": fps,
         "num_frames": frames,
+        "audio_streams": "",
     }
 
 
@@ -118,7 +120,10 @@ def probe_video(path: Path, ffprobe: Optional[str]) -> Dict[str, Any]:
         "-v",
         "error",
         "-show_entries",
-        "format=duration:stream=codec_type,codec_name,width,height,r_frame_rate,nb_frames",
+        (
+            "format=duration:"
+            "stream=codec_type,codec_name,width,height,pix_fmt,r_frame_rate,nb_frames"
+        ),
         "-of",
         "json",
         str(path),
@@ -144,8 +149,12 @@ def probe_video(path: Path, ffprobe: Optional[str]) -> Dict[str, Any]:
         "codec": video_stream.get("codec_name", ""),
         "width": video_stream.get("width", ""),
         "height": video_stream.get("height", ""),
+        "pixel_format": video_stream.get("pix_fmt", ""),
         "frame_rate": video_stream.get("r_frame_rate", ""),
         "num_frames": video_stream.get("nb_frames", ""),
+        "audio_streams": sum(
+            stream.get("codec_type") == "audio" for stream in payload.get("streams", [])
+        ),
     }
 
 
@@ -302,6 +311,10 @@ def main() -> None:
                 "codec": probe.get("codec", ""),
                 "width": probe.get("width", ""),
                 "height": probe.get("height", ""),
+                "pixel_format": probe.get("pixel_format", ""),
+                "frame_rate": probe.get("frame_rate", ""),
+                "num_frames": probe.get("num_frames", ""),
+                "audio_streams": probe.get("audio_streams", ""),
                 "duration_probe": probe.get("duration", ""),
             }
         )

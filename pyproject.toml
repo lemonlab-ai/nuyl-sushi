@@ -33,6 +33,7 @@ all = [
 nuyl-sushi-metadata = "nuyl_sushi.cli.metadata_candidates:main"
 nuyl-sushi-validate = "nuyl_sushi.cli.validate_master:main"
 nuyl-sushi-convert-via = "nuyl_sushi.cli.convert_via:main"
+nuyl-sushi-plan-release = "nuyl_sushi.cli.plan_media_release:main"
 
 [tool.setuptools]
 package-dir = {"" = "src"}
