@@ -1,0 +1,15 @@
+{
+  "videos": {
+    "example_video_001.mp4": {
+      "subject_id": "S01",
+      "session_id": "2026-03-17-AM",
+      "view_type": "front_view",
+      "skill_level": "beginner",
+      "subset": "",
+      "has_gyro": false,
+      "gyro_path": "",
+      "weight_path": "",
+      "weight_g": null
+    }
+  }
+}

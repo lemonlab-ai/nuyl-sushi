@@ -1,0 +1,15 @@
+name: ntnu-sushi
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - ffmpeg
+  - opencv
+  - jsonpickle
+  - moviepy
+  - pyyaml
+  - streamlit
+  - pip:
+      - mediapipe>=0.10.14
+      - wandb

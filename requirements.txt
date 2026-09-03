@@ -1,0 +1,7 @@
+jsonpickle>=3.0.0
+moviepy>=1.0.3
+opencv-python>=4.8.0
+mediapipe>=0.10.14
+pyyaml>=6.0
+streamlit>=1.36.0
+wandb>=0.17.0

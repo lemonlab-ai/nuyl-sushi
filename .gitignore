@@ -1,0 +1,36 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.DS_Store
+
+artifacts/
+external/
+logs/
+outputs/
+wandb/
+.env
+.env.*
+!.env.example
+.venv*/
+build/
+dist/
+*.egg-info/
+
+# Large/private runtime assets
+data/private/
+data/NUYLSushi-1M/
+data/meta/video_meta.json
+data/raw/via_csv/*
+!data/raw/via_csv/.gitkeep
+data/raw/videos/*
+!data/raw/videos/.gitkeep
+models/checkpoints/
+*.ckpt
+*.pth
+*.pt
+
+# Legacy projects are source snapshots only; never restore build artifacts.
+legacy/**/node_modules/
+legacy/**/build/
+legacy/**/dist/
