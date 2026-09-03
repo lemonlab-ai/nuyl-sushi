@@ -1,5 +1,12 @@
 # NUYL Sushi
 
+Repositories:
+
+- Public code and documentation: [lemonlab-ai/nuyl-sushi](https://github.com/lemonlab-ai/nuyl-sushi)
+- Private annotations and metadata: [lemonlab-ai/nuyl-sushi-dataset](https://github.com/lemonlab-ai/nuyl-sushi-dataset)
+
+Raw videos, sensor streams, GPS data, and participant metadata are not stored in the public repository.
+
 NUYL Sushi 是一套針對壽司料理影片的動作理解專案，目標是完成：
 
 - 料理動作分類（Task A）
