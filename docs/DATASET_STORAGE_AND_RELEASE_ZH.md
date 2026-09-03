@@ -160,3 +160,13 @@ python scripts/inventory_source_archive.py `
   --archive-id nuyl-sushi-original-2026-09-03 `
   --output-dir artifacts\archive_inventory\original-2026-09-03
 ```
+
+### 2026-09-04 第二份備份與還原演練
+
+- 原始封存已複製到 pCloud Drive 的獨立備份位置；複製採新增/覆寫模式，未使用 mirror 或刪除參數。
+- 備份端已完整讀回並重新計算 SHA-256：1,233/1,233 檔案正常，總容量 80,737,894,646 bytes。
+- 備份端 tree SHA-256 為 `37bd73709d894dad683a84a2b1919212cec5d0fcf2155fa87f39f796b7c4ba47`，與 D 槽原始封存完全一致。
+- 已由備份端還原 5 個代表性檔案到另一個本機磁碟，涵蓋影片、照片、感測器 CSV、VIA JSON 與工作簿；47,654,942 bytes 全數通過大小及 SHA-256 核對。
+- 驗證 manifest 與 restore drill 報告保存在 private dataset repository 的 `metadata/archive/pcloud-backup-2026-09-04/`，備份端也保留一份報告副本。
+
+這完成了目前資料準備流程中的「第二份遠端備份 + restore drill」。pCloud 是異地副本，但仍建議日後增加一份離線、不可變或冷儲存副本，降低同步刪除與帳號風險。
