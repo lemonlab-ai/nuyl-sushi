@@ -217,6 +217,8 @@ def decide_release_action(
         transcode_reasons.append("profile_requires_derivative")
 
     if transcode_reasons:
+        if transcode_reasons == ["strip_audio"]:
+            return ReleaseDecision("remux", ("strip_audio",))
         return ReleaseDecision("transcode", tuple(dict.fromkeys(transcode_reasons)))
     return ReleaseDecision("copy", ("profile_compliant",))
 
@@ -258,6 +260,34 @@ def build_ffmpeg_command(
         command.extend(["-movflags", "+faststart"])
     command.extend(["-n", output])
     return command
+
+
+def build_remux_command(
+    source: str,
+    output: str,
+    ffmpeg: str = "ffmpeg",
+) -> list[str]:
+    """Copy the video bitstream while removing every non-video stream."""
+
+    return [
+        ffmpeg,
+        "-nostdin",
+        "-i",
+        source,
+        "-map",
+        "0:v:0",
+        "-c:v",
+        "copy",
+        "-an",
+        "-sn",
+        "-dn",
+        "-map_metadata",
+        "0",
+        "-movflags",
+        "+faststart",
+        "-n",
+        output,
+    ]
 
 
 def resolve_manifest_source(source_dir: Path, filename: str) -> Optional[Path]:

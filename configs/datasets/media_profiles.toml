@@ -20,6 +20,20 @@ faststart = true
 copy_if_compliant = true
 overwrite = false
 
+[research-720p-no-audio]
+container = "mp4"
+video_codec = "libx264"
+crf = 21
+preset = "slow"
+pixel_format = "yuv420p"
+max_width = 1280
+max_height = 720
+fps_policy = "preserve"
+audio_policy = "strip"
+faststart = true
+copy_if_compliant = true
+overwrite = false
+
 [preview-360p]
 container = "mp4"
 video_codec = "libx264"

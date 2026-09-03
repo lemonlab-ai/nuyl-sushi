@@ -66,6 +66,14 @@ VIA reader/converter 的 golden fixture 與真實資料 parity 結果請見 [VIA
 python scripts/audit_source_dataset.py --help
 ```
 
+Dataset preparation 工具：
+
+```powershell
+python scripts/plan_dataset_release.py --help
+python scripts/strip_release_audio.py --help
+python scripts/inventory_source_archive.py --help
+```
+
 ## 原則
 
 1. 先建立資料契約與測試，再搬模型和介面。

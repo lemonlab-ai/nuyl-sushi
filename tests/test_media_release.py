@@ -12,6 +12,7 @@ if str(SRC_DIR) not in sys.path:
 from nuyl_sushi.data.media_release import (
     MediaProbe,
     build_ffmpeg_command,
+    build_remux_command,
     decide_release_action,
     load_media_profiles,
     parse_frame_rate,
@@ -75,6 +76,23 @@ class MediaReleaseTests(unittest.TestCase):
         decision = decide_release_action(self.profiles["research-720p"], probe)
         self.assertEqual(decision.action, "blocked")
         self.assertEqual(decision.reasons, ("audio_consent_review_required",))
+
+    def test_approved_audio_strip_uses_lossless_video_remux(self) -> None:
+        probe = MediaProbe(
+            status="ok",
+            codec="h264",
+            width=1280,
+            height=720,
+            pixel_format="yuv420p",
+            frame_rate=24.0,
+            duration_seconds=10.0,
+            audio_streams=1,
+        )
+        decision = decide_release_action(self.profiles["research-720p-no-audio"], probe)
+        self.assertEqual(decision.action, "remux")
+        command = build_remux_command("input.mp4", "output.mp4")
+        self.assertIn("copy", command)
+        self.assertIn("-an", command)
 
     def test_missing_probe_fields_are_not_guessed(self) -> None:
         decision = decide_release_action(

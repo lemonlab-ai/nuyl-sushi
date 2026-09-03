@@ -117,12 +117,46 @@ python scripts/plan_dataset_release.py `
 
 加上 `--verify-checksum` 才會重新讀取全部影片並核對 SHA-256。若找不到 `ffprobe`，工具仍會產生計畫，但缺少 codec、pixel format 或 audio 資訊的檔案會標成 `blocked`，不會猜測其合規性。
 
-### 2026-09-03 實際 dry-run
+### 2026-09-03 實際執行
 
 - 範圍：99 支 canonical 已標註影片。
 - SHA-256：99/99 與既有 manifest 相符。
 - 影像：99/99 為 H.264、`yuv420p`、1280×720、24 fps。
 - 音訊：99/99 各有 1 條 audio stream。
-- 決策：目前 99 支均為 `blocked`，唯一原因是 `audio_consent_review_required`。
+- 初次決策：99 支均為 `blocked`，唯一原因是 `audio_consent_review_required`。
+- 後續決策：專案負責人指定移除音訊，改用 `research-720p-no-audio` profile。
+- 結果：99/99 以 video stream copy remux 完成，輸出驗證為零音訊且影像參數不變。
+- 容量：2,325,245,142 bytes 降為 1,796,316,619 bytes，約減少 22.7%。
 
-影像本身符合 `research-720p`，不需要重新壓縮。若 consent 允許保留音訊，release 可直接 copy；若要求移除音訊，實作階段應採 video stream copy + `-an` 的 remux，避免畫面再次有損編碼。
+影像本身符合 `research-720p`，沒有重新壓縮。衍生影音位於 Git 之外的 `NUYL-Sushi-Derived/v0.1.0-private/research-720p-no-audio`；release manifest 則進入 private dataset repository。這項音訊處理決策不等同公開發布 consent，後者仍維持 unresolved。
+
+可重建命令：
+
+```powershell
+python scripts/strip_release_audio.py `
+  --video-manifest C:\path\to\video_manifest.csv `
+  --source-dir C:\path\to\videos `
+  --output-dir D:\path\to\v0.1.0-private\research-720p-no-audio `
+  --dataset-version v0.1.0-private `
+  --execute
+```
+
+工具執行前會核對每支來源 SHA-256，只接受安全的 remux 決策；目的檔以 partial file 完成後才原子改名，並重新 probe 與計算 derivative SHA-256。
+
+### 2026-09-03 原始來源 archive inventory
+
+- 範圍：`NUYL SUSHI` 完整來源樹。
+- 檔案：1,233。
+- 容量：80,737,894,646 bytes（75.193 GiB）。
+- SHA-256：1,233/1,233 完成，零錯誤。
+- Tree SHA-256：`37bd73709d894dad683a84a2b1919212cec5d0fcf2155fa87f39f796b7c4ba47`。
+- 相同內容 hash groups：199，但多餘容量只有 850,974 bytes，主要是小型 annotation copies；沒有值得冒風險刪除的影片級重複檔。
+
+Inventory 工具支援逐檔 checkpoint 與續跑：
+
+```powershell
+python scripts/inventory_source_archive.py `
+  --source-root D:\path\to\NUYL-SUSHI `
+  --archive-id nuyl-sushi-original-2026-09-03 `
+  --output-dir artifacts\archive_inventory\original-2026-09-03
+```

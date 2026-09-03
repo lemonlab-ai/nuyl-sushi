@@ -15,6 +15,7 @@ from typing import Any, Optional, Sequence
 from nuyl_sushi.config import ProjectPaths
 from nuyl_sushi.data.media_release import (
     build_ffmpeg_command,
+    build_remux_command,
     decide_release_action,
     find_executable,
     load_media_profiles,
@@ -154,10 +155,15 @@ def run(args: argparse.Namespace) -> dict[str, Any]:
         )
         output_rel = f"{args.profile}/{filename}" if filename else ""
         command_preview = ""
-        if decision.action == "transcode":
-            command_preview = subprocess.list2cmdline(
-                build_ffmpeg_command("<source>", f"<output>/{output_rel}", profile, args.ffmpeg)
+        if decision.action in {"transcode", "remux"}:
+            command = (
+                build_remux_command("<source>", f"<output>/{output_rel}", args.ffmpeg)
+                if decision.action == "remux"
+                else build_ffmpeg_command(
+                    "<source>", f"<output>/{output_rel}", profile, args.ffmpeg
+                )
             )
+            command_preview = subprocess.list2cmdline(command)
         plan_rows.append(
             {
                 "video_id": row.get("video_id", Path(filename).stem),

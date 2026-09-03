@@ -263,3 +263,5 @@ package → canonical data → dataset preparation → tests/CI
 VIA reader/converter 與 golden fixtures 已完成；新版對 99 支影片、1,232 個片段的輸出與舊版 master 語意完全相同。下一個批次改為 Task A/B canonical exporters。
 
 Dataset release dry-run planner 已完成；99 支影片 checksum 全數相符且影像編碼符合 `research-720p`。目前唯一發布閘門是每支影片皆含音訊，須先完成人工 consent 決策。原始影片未被修改或轉碼。
+
+音訊處理決策已指定為 strip；99 支 `v0.1.0-private` 衍生影片已用 video stream copy remux 完成，影像未重新編碼。完整原始來源 inventory 亦已完成：1,233 檔、75.193 GiB、零 hash 錯誤。下一個資料治理工作是建立第二份實體/遠端備份並做 restore drill；公開發布 consent 仍未核准。
