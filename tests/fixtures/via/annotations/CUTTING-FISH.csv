@@ -1,0 +1,5 @@
+# CSV_HEADER = file_list,metadata,temporal_coordinates
+# golden fixture with VIA comment header
+"[""video_a.mp4""]","{""1"":""Cutting slices""}","[0.5,2.0]"
+"[""video_a.mp4""]","{""fine_label"":""weighing_slices""}","{""start"":2.5,""end"":3.25}"
+"[""video_b.mp4""]","[""Trim fish""]","[1,4]"

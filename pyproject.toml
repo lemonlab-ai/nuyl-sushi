@@ -1,0 +1,40 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nuyl-sushi"
+version = "0.1.0"
+description = "Canonical data, evaluation, and inference tooling for the NUYL Sushi project"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "Proprietary - licensing under review"}
+authors = [{name = "NUYL Sushi contributors"}]
+dependencies = []
+
+[project.optional-dependencies]
+data = ["jsonpickle>=3.0.0", "pyyaml>=6.0"]
+vision = ["opencv-python>=4.8.0", "moviepy>=1.0.3", "mediapipe>=0.10.14"]
+research = ["wandb>=0.17.0"]
+demo = ["streamlit>=1.36.0"]
+dev = ["build>=1.2.0"]
+all = [
+  "jsonpickle>=3.0.0",
+  "pyyaml>=6.0",
+  "opencv-python>=4.8.0",
+  "moviepy>=1.0.3",
+  "mediapipe>=0.10.14",
+  "wandb>=0.17.0",
+  "streamlit>=1.36.0",
+]
+
+[project.scripts]
+nuyl-sushi-metadata = "nuyl_sushi.cli.metadata_candidates:main"
+nuyl-sushi-validate = "nuyl_sushi.cli.validate_master:main"
+nuyl-sushi-convert-via = "nuyl_sushi.cli.convert_via:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]

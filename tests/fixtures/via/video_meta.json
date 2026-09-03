@@ -1,0 +1,18 @@
+{
+  "videos": {
+    "video_a.mp4": {
+      "subject_id": "S01",
+      "session_id": "session-a",
+      "view_type": "view1",
+      "skill_level": "master",
+      "has_gyro": true,
+      "gyro_path": "sensor/a.csv"
+    },
+    "video_b": {
+      "subject_id": "S02",
+      "session_id": "session-b",
+      "view_type": "view2",
+      "skill_level": "novice"
+    }
+  }
+}

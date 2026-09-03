@@ -1,0 +1,28 @@
+{
+  "version": "1.0",
+  "label_space": {
+    "coarse": ["CUTTING-FISH"],
+    "fine": ["CUTTING-SLICES", "TRIM-FISH", "WEIGHING-SLICES"]
+  },
+  "videos": {
+    "video_a": {
+      "subject_id": "S01",
+      "session_id": "session-a",
+      "view_type": "view1",
+      "skill_level": "expert",
+      "subset": "train",
+      "annotations": [
+        [0.5, 2.0, "CUTTING-FISH", "CUTTING-SLICES"],
+        [2.5, 3.25, "CUTTING-FISH", "WEIGHING-SLICES"]
+      ]
+    },
+    "video_b": {
+      "subject_id": "S02",
+      "session_id": "session-b",
+      "view_type": "view2",
+      "skill_level": "beginner",
+      "subset": "train",
+      "annotations": [[1.0, 4.0, "CUTTING-FISH", "TRIM-FISH"]]
+    }
+  }
+}
