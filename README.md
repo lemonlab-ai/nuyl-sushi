@@ -50,6 +50,8 @@ legacy/                # 遷移完成後刪除
 
 D 槽原始資料的第一輪完整性結果請見 [資料稽核](docs/DATA_AUDIT_D_DRIVE_ZH.md)。
 
+原始封存、私有工作集、壓縮 profiles 與未來發布位置請見 [Dataset 儲存與發布策略](docs/DATASET_STORAGE_AND_RELEASE_ZH.md)。
+
 視角補全、感測器候選與下一步人工確認方式請見 [中繼資料補全流程](docs/METADATA_COMPLETION_ZH.md)。
 
 Python package 的安裝方式與遷移規則請見 [Package 基礎](docs/PACKAGE_FOUNDATION_ZH.md)。

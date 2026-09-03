@@ -108,6 +108,21 @@ NUYL-Sushi/
 
 完成條件：相同輸入永遠產生相同輸出 checksum；所有 exporter 有 golden tests；subject 不跨資料切分。
 
+### 2.5. 建立 dataset 儲存與 release preparation
+
+在大量訓練或 demo 開發前，先把原始封存、私有工作集與可發布衍生版分開。
+
+工作：
+
+- D 槽約 75 GB 來源維持唯讀，建立全量 SHA-256 manifest、第二份離線副本與加密遠端封存。
+- Git repositories 只保存程式、標註、manifest 與文件；影音本體由 object storage/NAS 管理。
+- 建立 `research-720p` 與 `preview-360p` profiles，以及 probe、dry-run、轉碼、驗證與 release manifest 流程。
+- 現有 114 支 720p MP4 先做 compliance probe；符合規格者直接沿用，避免二次有損壓縮。
+- 先以 6–10 支代表影片做 pilot，比較檔案大小、畫面細節與模型指標，再決定是否全量轉碼。
+- consent、個資、音訊與 GPS 審查未完成前，不建立公開 release。
+
+完成條件：任一 derivative 都能從 immutable source 與受版控設定重建；source/derivative checksum 可追溯；原檔未被改動。完整決策見 [`DATASET_STORAGE_AND_RELEASE_ZH.md`](DATASET_STORAGE_AND_RELEASE_ZH.md)。
+
 ### 3. 建立正式測試與 CI
 
 不能等全部搬完才補測試。
@@ -204,8 +219,8 @@ API 完成後才寫正式前端，避免再次出現 client/server 契約不一�
 ```text
 baseline
    ↓
-package → canonical data → tests/CI
-                            ↓
+package → canonical data → dataset preparation → tests/CI
+                                                  ↓
                        inference contract
                           ↙          ↘
                  training/eval       API
@@ -230,13 +245,14 @@ package → canonical data → tests/CI
 1. `baseline-and-data-audit`
 2. `python-package-foundation`
 3. `canonical-data-model`
-4. `data-pipeline-tests`
-5. `inference-contract-and-registry`
-6. `training-pipeline-migration`
-7. `fastapi-job-service`
-8. `vue-web-demo`
-9. `streamlit-core-migration`
-10. `legacy-removal-and-release`
+4. `dataset-storage-and-release-preparation`
+5. `data-pipeline-tests`
+6. `inference-contract-and-registry`
+7. `training-pipeline-migration`
+8. `fastapi-job-service`
+9. `vue-web-demo`
+10. `streamlit-core-migration`
+11. `legacy-removal-and-release`
 
 第 1 批「現況基準與資料盤點」已完成。下一個工程批次確定為 `python-package-foundation`；subject-wise split 則要等匿名 subject metadata 補齊後再啟用。
 

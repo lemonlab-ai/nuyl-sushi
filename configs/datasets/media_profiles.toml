@@ -1,0 +1,40 @@
+schema_version = 1
+
+[archive-original]
+operation = "copy"
+immutable = true
+checksum = "sha256"
+overwrite = false
+
+[research-720p]
+container = "mp4"
+video_codec = "libx264"
+crf = 21
+preset = "slow"
+pixel_format = "yuv420p"
+max_width = 1280
+max_height = 720
+fps_policy = "preserve"
+audio_policy = "review_then_strip"
+faststart = true
+copy_if_compliant = true
+overwrite = false
+
+[preview-360p]
+container = "mp4"
+video_codec = "libx264"
+crf = 28
+preset = "medium"
+pixel_format = "yuv420p"
+max_width = 640
+max_height = 360
+max_fps = 15
+audio_policy = "strip"
+faststart = true
+copy_if_compliant = false
+overwrite = false
+
+[webdataset]
+enabled = false
+source_profile = "research-720p"
+target_shard_bytes = 2147483648
