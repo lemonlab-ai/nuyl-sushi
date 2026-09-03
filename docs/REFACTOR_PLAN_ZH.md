@@ -266,4 +266,4 @@ Dataset release dry-run planner 已完成；99 支影片 checksum 全數相符�
 
 音訊處理決策已指定為 strip；99 支 `v0.1.0-private` 衍生影片已用 video stream copy remux 完成，影像未重新編碼。完整原始來源 inventory 亦已完成：1,233 檔、75.193 GiB、零 hash 錯誤。下一個資料治理工作是建立第二份實體/遠端備份並做 restore drill；公開發布 consent 仍未核准。
 
-2026-09-04 進度：第二份 pCloud Drive 備份已完成完整讀回驗證；1,233 檔、80,737,894,646 bytes 與原始封存的 tree SHA-256 完全一致。五類代表性檔案的跨磁碟還原演練亦全部通過。儲存與可恢復性 gate 至此完成；下一個重構單位回到 Task A/B canonical exporters。subject-wise split 與任何公開資料發布仍需等待匿名 subject metadata 與 consent 人工審查。
+2026-09-04 進度：第二份備份依儲存決策改放 E 槽；pCloud 暫存副本已移除。E 槽副本已完成完整讀回驗證，1,233 檔、80,737,894,646 bytes 與 D 槽原始封存的 tree SHA-256 完全一致。五類代表性檔案的 E → C 還原演練亦全部通過。現階段本機儲存與可恢復性 gate 已完成；下一個重構單位回到 Task A/B canonical exporters。subject-wise split 與任何公開資料發布仍需等待匿名 subject metadata 與 consent 人工審查。
